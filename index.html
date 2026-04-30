@@ -129,14 +129,28 @@
         #screen-cake {
             background: radial-gradient(circle at 30% 10%, #2b1b4e, #0c0820);
         }
-        .cake-scene { text-align: center; padding: 1rem; width: 100%; }
+        .cake-scene {
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 10px;
+}
         .cake-title { font-size: 2.2rem; color: #ffeaac; margin: 0.3rem; }
         .cake-subtitle { font-size: 1.3rem; color: #f3c26b; margin-bottom: 1rem; }
-        .cake-container {
-            display: flex;
-            justify-content: center;
-            margin: 1rem auto;
-        }
+      .cake-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* يخلي الكعكة تنزل لتحت */
+    
+    height: 320px; /* مهم جداً */
+    margin-top: 10px;
+}
       .cake {
     display: flex;
     flex-direction: column-reverse; /* هذا هو السر */
@@ -159,10 +173,40 @@
 }
 
 /* كل طبقة يكون عندها مكانها الطبيعي */
-.layer-bottom { z-index: 1; }
-.layer-middle { z-index: 2; }
-.layer-top    { z-index: 3; }
+.layer-bottom {
+    width: 230px;
+    height: 65px;
+    background: linear-gradient(180deg, #ff9a9e, #ff6a88);
+    border-radius: 20px 20px 14px 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
 
+.layer-middle {
+    width: 190px;
+    height: 55px;
+    background: linear-gradient(180deg, #a18cd1, #6f5bdc);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.layer-top {
+    width: 150px;
+    height: 48px;
+    background: linear-gradient(180deg, #fbc2eb, #f5576c);
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+
+ .cake-layer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+}       
 .cake-layer.drop-in {
     opacity: 1;
     transform: translateY(0);
@@ -198,24 +242,58 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
             z-index: 0;
         }
-        .cream-layer {
-            width: 160px;
-            height: 22px;
-            background: #fff5e0;
-            border-radius: 30px;
-            margin-top: -14px;
-            margin-bottom: 0;
-            position: relative;
-            z-index: 4;
-            box-shadow: 0 2px 15px rgba(255,215,0,0.6);
-            opacity: 0;
-            transform: scaleY(0);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        .cream-layer.show-cream {
-            opacity: 1;
-            transform: scaleY(1);
-        }
+       .cream-layer {
+    position: relative;
+    width: 160px;
+    height: 30px;
+    background: #fff4dc;
+    border-radius: 20px;
+    margin-top: -18px;
+    z-index: 5;
+
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+
+    transition: all 0.5s ease;
+}
+
+/* ظهور الكريمة */
+.cream-layer.show-cream {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+/* dripping effect */
+.cream-layer::before,
+.cream-layer::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    width: 14px;
+    height: 18px;
+    background: #fff4dc;
+    border-radius: 50%;
+}
+
+/* قطرات */
+.cream-layer::before {
+    left: 25%;
+}
+
+.cream-layer::after {
+    left: 65%;
+}
+
+/* قطرات إضافية */
+.cream-layer span {
+    position: absolute;
+    bottom: -10px;
+    width: 10px;
+    height: 14px;
+    background: #fff4dc;
+    border-radius: 50%;
+}
         .candles-container {
             display: flex;
             gap: 14px;
@@ -402,8 +480,10 @@
     <div class="cake-layer layer-bottom" id="layerB"></div>
     <div class="cake-layer layer-middle" id="layerM"></div>
     <div class="cake-layer layer-top" id="layerT"></div>
-
-    <div class="cream-layer" id="creamLayer"></div>
+<div class="cream-layer" id="creamLayer">
+    <span style="left:40%"></span>
+    <span style="left:55%"></span>
+</div>
     <div id="candlesContainer" class="candles-container"></div>
 </div>
             </div>
