@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🎂 EPIC BIRTHDAY MAYHEM – Soulef</title>
+    <title>🎂 EPIC BIRTHDAY CHAOS – Soulef</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -56,6 +56,9 @@
             text-align: center;
             padding: 2rem;
             max-width: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .crown-icon { font-size: 4rem; animation: float 2.5s ease-in-out infinite; }
         @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
@@ -78,8 +81,9 @@
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            min-height: 110px;
+            min-height: 140px;
             align-items: center;
+            transition: all 0.2s;
         }
         .btn {
             border: none;
@@ -89,24 +93,27 @@
             border-radius: 60px;
             padding: 0.9rem 2rem;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            will-change: transform;
         }
         .btn-yes {
             background: linear-gradient(135deg, #e2b13b, #c47d2e);
             color: white;
             box-shadow: 0 5px 20px rgba(226,177,59,0.4);
+            transform-origin: center;
         }
-        .btn-yes:hover { transform: scale(1.05); }
         .btn-no {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(8px);
             color: #ffddbb;
             border: 1px solid rgba(255,215,0,0.4);
+            transform-origin: center;
+            transition: all 0.15s ease;
         }
         .btn-no.disabled {
             pointer-events: none;
-            opacity: 0.3;
-            transform: scale(0.8);
+            opacity: 0.2;
+            transform: scale(0.5) !important;
         }
         .no-counter {
             margin-top: 1.2rem;
@@ -235,60 +242,62 @@
         .flame-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 200;
-            background: radial-gradient(circle, transparent 30%, rgba(255, 80, 0, 0.4) 80%);
+            background: radial-gradient(circle, transparent 30%, rgba(255, 80, 0, 0.5) 80%);
             mix-blend-mode: screen;
-            animation: flamePulse 0.15s infinite alternate;
+            animation: flamePulse 0.12s infinite alternate;
         }
         @keyframes flamePulse {
-            0% { opacity: 0.6; filter: blur(2px); }
-            100% { opacity: 1; filter: blur(5px); }
+            0% { opacity: 0.7; filter: blur(3px); }
+            100% { opacity: 1; filter: blur(8px); background: radial-gradient(circle, transparent 20%, rgba(255, 60, 0, 0.7) 90%); }
         }
         .real-fire {
-            position: fixed; bottom: 10%; left: 50%; transform: translateX(-50%);
-            font-size: 7rem; pointer-events: none; z-index: 201;
-            text-shadow: 0 0 20px orange, 0 0 50px red;
-            animation: fireFlick 0.08s infinite;
+            position: fixed; bottom: 15%; left: 50%; transform: translateX(-50%);
+            font-size: 8rem; pointer-events: none; z-index: 201;
+            text-shadow: 0 0 30px orange, 0 0 70px red;
+            animation: fireFlick 0.07s infinite;
         }
         @keyframes fireFlick {
-            0% { text-shadow: 0 0 15px orange, 0 0 30px red; transform: translateX(-50%) scale(1); }
-            100% { text-shadow: 0 0 40px #ff6600, 0 0 70px #ff3300; transform: translateX(-50%) scale(1.1); }
+            0% { text-shadow: 0 0 20px #ffaa00, 0 0 40px #ff4400; transform: translateX(-50%) scale(1); }
+            100% { text-shadow: 0 0 50px #ff6600, 0 0 90px #ff0000; transform: translateX(-50%) scale(1.15); }
         }
         .message-card.burning {
-            animation: burnSlowly 10s forwards;
+            animation: burnSlowly 6s forwards;
         }
         @keyframes burnSlowly {
             0% { transform: scale(1); opacity: 1; filter: brightness(1); }
-            20% { transform: scale(1.02); filter: brightness(1.3) hue-rotate(5deg); }
-            50% { transform: scale(0.95); filter: brightness(1.8) hue-rotate(15deg); opacity: 0.9; }
-            80% { transform: scale(0.6) rotate(5deg); filter: brightness(2.5) hue-rotate(25deg); opacity: 0.6; }
-            100% { transform: scale(0) rotate(15deg); filter: brightness(0); opacity: 0; visibility: hidden; }
+            25% { transform: scale(1.02); filter: brightness(1.4) hue-rotate(8deg); }
+            50% { transform: scale(0.95); filter: brightness(2) hue-rotate(18deg); opacity: 0.9; }
+            75% { transform: scale(0.7) rotate(6deg); filter: brightness(2.8); opacity: 0.5; }
+            100% { transform: scale(0) rotate(20deg); filter: brightness(0); opacity: 0; visibility: hidden; }
         }
         .burn-progress-bar {
-            position: fixed; bottom: 30px; left: 20%; width: 60%; height: 8px;
-            background: #333; border-radius: 10px; z-index: 250; overflow: hidden;
+            position: fixed; bottom: 30px; left: 20%; width: 60%; height: 10px;
+            background: #222; border-radius: 10px; z-index: 250; overflow: hidden;
+            box-shadow: 0 0 8px rgba(255,80,0,0.5);
         }
         .burn-progress-fill {
-            width: 0%; height: 100%; background: linear-gradient(90deg, #ff8800, #ff3300);
+            width: 0%; height: 100%; background: linear-gradient(90deg, #ffaa00, #ff3300);
             border-radius: 10px; transition: width 0.05s linear;
+            box-shadow: 0 0 8px orange;
         }
         .ash-particle {
-            position: absolute; background: #5a5a5a; border-radius: 50%;
+            position: absolute; background: #4a3a2a; border-radius: 50%;
             pointer-events: none; z-index: 202;
-            opacity: 0.8; animation: floatAsh 2s ease-out forwards;
+            opacity: 0.9; animation: floatAsh 1.5s ease-out forwards;
         }
         @keyframes floatAsh {
             0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(-150px) rotate(180deg); opacity: 0; }
+            100% { transform: translateY(-200px) rotate(200deg); opacity: 0; }
         }
         .wind-wave {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(120deg, rgba(255,255,255,0.15) 0px, rgba(255,255,255,0.15) 2px, transparent 2px, transparent 30px);
+            background: repeating-linear-gradient(120deg, rgba(255,255,200,0.2) 0px, rgba(255,255,200,0.2) 3px, transparent 3px, transparent 35px);
             pointer-events: none; z-index: 110;
-            animation: windMove 0.3s linear;
+            animation: windMove 0.4s linear;
         }
         @keyframes windMove {
             0% { background-position: -100% 0; opacity: 0; }
-            10% { opacity: 1; }
+            20% { opacity: 1; }
             100% { background-position: 200% 0; opacity: 0; }
         }
         .message-title { font-size: 1.9rem; color: #b63a1a; margin-bottom: 0.3rem; }
@@ -344,6 +353,7 @@
             .candle { width: 8px; height: 38px; }
             .finale-text h1 { font-size: 1.6rem; }
             .finale-text p { font-size: 1rem; }
+            .real-fire { font-size: 5rem; bottom: 20%; }
         }
     </style>
 </head>
@@ -426,7 +436,7 @@
     <script>
         (function(){
             let noCount = 0;
-            const MAX_NO_CLICKS = 8;
+            const MAX_NO = 15;
             let totalCandles = 5;
             let candlesBlown = 0;
             let audioCtx = null;
@@ -434,7 +444,7 @@
             let ashInterval = null;
             let burnTimeout = null;
             let progressInterval = null;
-            let progressPercent = 0;
+            let fireNoiseSource = null;
 
             const screens = document.querySelectorAll('.screen');
             const btnYes = document.getElementById('btn-yes');
@@ -466,8 +476,6 @@
                 osc.stop(now+duration);
             }
 
-            // Realistic crackling fire noise
-            let fireNoiseSource = null;
             function startCracklingFire(){
                 if(!audioCtx) return;
                 const bufferSize = 4096;
@@ -475,15 +483,15 @@
                 noiseNode.onaudioprocess = function(e) {
                     const output = e.outputBuffer.getChannelData(0);
                     for (let i = 0; i < bufferSize; i++) {
-                        output[i] = (Math.random() * 2 - 1) * 0.15;
+                        output[i] = (Math.random() * 2 - 1) * 0.18;
                     }
                 };
                 const filter = audioCtx.createBiquadFilter();
                 filter.type = 'bandpass';
-                filter.frequency.value = 800;
-                filter.Q.value = 1.5;
+                filter.frequency.value = 700;
+                filter.Q.value = 1.2;
                 const gainNode = audioCtx.createGain();
-                gainNode.gain.value = 0.25;
+                gainNode.gain.value = 0.35;
                 noiseNode.connect(filter);
                 filter.connect(gainNode);
                 gainNode.connect(audioCtx.destination);
@@ -496,62 +504,55 @@
                 }
             }
 
-            // Ash particles
             function createAshParticle(x, y){
                 const ash = document.createElement('div');
                 ash.className = 'ash-particle';
                 ash.style.left = x + '%';
                 ash.style.top = y + '%';
-                ash.style.width = Math.random()*8 + 4 + 'px';
+                ash.style.width = Math.random()*10 + 5 + 'px';
                 ash.style.height = ash.style.width;
-                ash.style.background = `#${Math.floor(Math.random()*0x888888 + 0x444444).toString(16)}`;
+                ash.style.background = `#${Math.floor(Math.random()*0x666666 + 0x333333).toString(16)}`;
                 document.body.appendChild(ash);
-                setTimeout(()=>ash.remove(), 2000);
+                setTimeout(()=>ash.remove(), 1800);
             }
             
             function startAshShower(){
                 ashInterval = setInterval(()=>{
-                    for(let i=0;i<8;i++){
-                        const randX = 30 + Math.random() * 40;
-                        const randY = 40 + Math.random() * 30;
+                    for(let i=0;i<12;i++){
+                        const randX = 25 + Math.random() * 50;
+                        const randY = 35 + Math.random() * 40;
                         createAshParticle(randX, randY);
                     }
-                }, 200);
+                }, 150);
             }
 
-            // Wind effect for blow all
             function addWindEffect(){
                 const windDiv = document.createElement('div');
                 windDiv.className = 'wind-wave';
                 document.body.appendChild(windDiv);
-                setTimeout(()=>windDiv.remove(), 400);
-                playTone(150, 0.6, 'sawtooth', 0.12);
+                setTimeout(()=>windDiv.remove(), 450);
+                playTone(140, 0.7, 'sawtooth', 0.13);
             }
 
-            // Vibration if supported
-            function vibrate(duration=200){
-                if(navigator.vibrate) navigator.vibrate(duration);
+            function vibrate(dur=100){
+                if(navigator.vibrate) navigator.vibrate(dur);
             }
 
-            // Happy birthday short tune for cake
             function playHappyShort(){
                 if(!audioCtx) return;
-                const notes = [262,294,330,262,349,392];
-                let t=0;
-                notes.forEach(f=>{ setTimeout(()=>playTone(f,0.25,'sine',0.18), t*280); t++; });
+                [262,294,330,349,392].forEach((f,i)=> setTimeout(()=>playTone(f,0.25,'sine',0.18), i*280));
             }
 
-            // Church wedding music enhanced
             function playChurchWeddingMusic(){
                 if(!audioCtx) return;
                 const melody = [523,587,659,523, 659,587,523,494, 440,440,494,523, 523,523,523,659, 523,587,659,523, 659,587,523,494, 440,440,494,523, 523,523,523,523];
                 let startTime = audioCtx.currentTime + 0.1;
-                melody.forEach((freq, idx) => {
+                melody.forEach((freq) => {
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
                     osc.type = 'triangle';
                     osc.frequency.value = freq;
-                    gain.gain.value = 0.32;
+                    gain.gain.value = 0.3;
                     gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.38);
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
@@ -566,18 +567,18 @@
                         osc2.type = 'triangle';
                         osc2.frequency.value = 659;
                         gain2.gain.value = 0.35;
-                        gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
+                        gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.2);
                         osc2.connect(gain2);
                         gain2.connect(audioCtx.destination);
                         osc2.start();
-                        osc2.stop(audioCtx.currentTime + 2.5);
+                        osc2.stop(audioCtx.currentTime + 2.2);
                     }
-                }, 14500);
+                }, 14000);
             }
 
             function successBeep(){ playTone(880, 0.12, 'sine', 0.2); vibrate(50); }
 
-            // Confetti
+            // Confetti system
             const confCanvas = document.getElementById('confetti');
             const confCtx = confCanvas.getContext('2d');
             let confParticles = [];
@@ -587,14 +588,14 @@
             resizeConf();
             function launchConfetti(burst=true){
                 if(!confActive) confActive = true;
-                let count = burst ? 150 : 70;
+                let count = burst ? 160 : 80;
                 for(let i=0;i<count;i++){
                     confParticles.push({
                         x: Math.random()*confCanvas.width, y: -20-Math.random()*150,
                         w: 5+Math.random()*9, h: 3+Math.random()*7,
                         color: ['#FFC857','#FF6B6B','#A29BFE','#F3A683','#FF8A5C'][Math.floor(Math.random()*5)],
-                        vy: 2+Math.random()*4.5, vx: (Math.random()-0.5)*3,
-                        rot: Math.random()*360, rotSpd: (Math.random()-0.5)*14, op: 1
+                        vy: 2+Math.random()*4.5, vx: (Math.random()-0.5)*3.2,
+                        rot: Math.random()*360, rotSpd: (Math.random()-0.5)*15, op: 1
                     });
                 }
                 if(!window.confFrame){
@@ -619,47 +620,48 @@
                 }
             }
 
-            // Entry NO button with forced YES after max
-            const noMessages = ["Really? 👀", "The crown says otherwise 🤥", "Your stupidity is glowing 🤩", "Last chance...", "YES button is growing...", "JUST ADMIT IT 🎈", "Fine, but you know the truth 😏", "Ok ok you’re smart, but click YES", "🤭🤭", "OK ENOUGH! CLICK YES NOW!"];
+            // Entry button logic: up to 15 clicks, NO shrinks, YES grows to half screen
+            const noMessages = [
+                "Really? 👀", "The crown says otherwise 🤥", "Your stupidity is glowing 🤩", "Last chance...",
+                "YES button is growing...", "JUST ADMIT IT 🎈", "Fine, but you know the truth 😏",
+                "Ok ok you’re smart, but click YES", "🤭🤭", "Getting dangerous...", "You're persistent 😂",
+                "Almost there...", "One more? 🤣", "Last click before force!", "OK ENOUGH! CLICK YES NOW!"
+            ];
             btnNo.addEventListener('click',()=>{
                 initAudio(); playTone(660,0.08);
+                if(noCount >= MAX_NO) return;
                 noCount++;
-                if(noCount >= MAX_NO_CLICKS) {
+                // Calculate scale: YES grows from 1 to max 2.5 (half screen relative)
+                let yesScale = Math.min(1 + noCount * 0.1, 2.8);
+                btnYes.style.transform = `scale(${yesScale})`;
+                // NO shrinks to 0.2
+                let noScale = Math.max(1 - noCount * 0.055, 0.2);
+                btnNo.style.transform = `scale(${noScale}) translate(${(Math.random()-0.5)*noCount*5}px, ${(Math.random()-0.5)*4}px)`;
+                let msgIndex = Math.min(noCount-1, noMessages.length-1);
+                noCounter.textContent = noMessages[msgIndex];
+                if(noCount === MAX_NO) {
                     btnNo.classList.add('disabled');
-                    btnNo.style.pointerEvents = 'none';
-                    noCounter.textContent = "Alright alright! You have no choice now 😂 Click YES!";
-                } else {
-                    btnYes.style.transform = `scale(${Math.min(1+noCount*0.12, 2.2)})`;
-                    let noScale = Math.max(1 - noCount*0.05, 0.5);
-                    btnNo.style.transform = `scale(${noScale}) translate(${(Math.random()-0.5)*noCount*6}px, ${(Math.random()-0.5)*5}px)`;
-                    let msg = noMessages[Math.min(noCount-1, noMessages.length-1)];
-                    noCounter.textContent = msg;
+                    noCounter.textContent = "🤣 Alright! No more escapes! Click YES! 👑";
                 }
                 noCounter.classList.add('shake');
                 setTimeout(()=>noCounter.classList.remove('shake'),300);
             });
+
             btnYes.addEventListener('click',()=>{
                 initAudio(); successBeep(); launchConfetti(true);
                 setTimeout(()=>{ showScreen('screen-cake'); startCakeDrop(); }, 700);
             });
 
             function startCakeDrop(){
-                const layerB = document.getElementById('layerB');
-                const layerM = document.getElementById('layerM');
-                const layerT = document.getElementById('layerT');
-                layerB.classList.add('drop-in');
-                setTimeout(()=>{ layerM.classList.add('drop-in'); }, 200);
-                setTimeout(()=>{ layerT.classList.add('drop-in'); }, 400);
-                setTimeout(()=>{
-                    creamLayer.classList.add('show-cream');
-                    playTone(480, 0.2, 'sine', 0.18);
-                }, 650);
+                document.getElementById('layerB').classList.add('drop-in');
+                setTimeout(()=> document.getElementById('layerM').classList.add('drop-in'), 200);
+                setTimeout(()=> document.getElementById('layerT').classList.add('drop-in'), 400);
+                setTimeout(()=>{ creamLayer.classList.add('show-cream'); playTone(480,0.2); }, 650);
                 setTimeout(()=>{
                     createCandles();
-                    const candlesDiv = document.querySelector('.candles-container');
-                    candlesDiv.classList.add('show-candles');
+                    document.querySelector('.candles-container').classList.add('show-candles');
                     blowAllBtn.style.display = 'inline-block';
-                    blowInstruction.innerText = `🕯️ Click each candle to blow them out! (${totalCandles - candlesBlown} left)`;
+                    blowInstruction.innerText = `🕯️ Click each candle to blow them out! (${totalCandles} left)`;
                     playHappyShort();
                 }, 1000);
             }
@@ -675,7 +677,7 @@
                     candle.addEventListener('click', (e)=>{
                         e.stopPropagation();
                         if(flame.classList.contains('blown')) return;
-                        playTone(230, 0.25, 'triangle', 0.13);
+                        playTone(230,0.25,'triangle',0.13);
                         vibrate(30);
                         flame.classList.add('blown');
                         candlesBlown++;
@@ -683,7 +685,7 @@
                         if(candlesBlown === totalCandles){
                             blowInstruction.innerText = "✨ Make a wish! ✨";
                             successBeep(); launchConfetti(true);
-                            setTimeout(()=>{ showScreen('screen-envelope'); }, 1500);
+                            setTimeout(()=> showScreen('screen-envelope'), 1500);
                         }
                     });
                     candlesContainer.appendChild(candle);
@@ -692,19 +694,15 @@
 
             blowAllBtn.addEventListener('click',()=>{
                 addWindEffect();
-                const allFlames = document.querySelectorAll('.candle-flame');
-                allFlames.forEach(flame=>{
-                    if(!flame.classList.contains('blown')){
-                        flame.classList.add('blown');
-                        candlesBlown++;
-                    }
+                document.querySelectorAll('.candle-flame').forEach(flame=>{
+                    if(!flame.classList.contains('blown')){ flame.classList.add('blown'); candlesBlown++; }
                 });
-                vibrate(100);
+                vibrate(120);
                 playTone(310,0.4,'triangle',0.2);
                 blowInstruction.innerText = "✨ Whoosh! All blown! ✨";
                 if(candlesBlown >= totalCandles){
                     successBeep(); launchConfetti(true);
-                    setTimeout(()=>{ showScreen('screen-envelope'); }, 1300);
+                    setTimeout(()=> showScreen('screen-envelope'), 1300);
                 }
             });
 
@@ -714,17 +712,14 @@
                 setTimeout(()=>{
                     successBeep(); launchConfetti(true);
                     showScreen('screen-message');
-                    // gentle melody
-                    const gentle = [523,587,659,523];
-                    let t=0;
-                    gentle.forEach(f=>{ setTimeout(()=>playTone(f,0.25,'sine',0.12), t*300); t++; });
+                    [523,587,659,523].forEach((f,i)=> setTimeout(()=>playTone(f,0.25,'sine',0.12), i*300));
                 }, 700);
             });
 
-            // BURN with full effects: fire sound, ash, progress bar, explosion finale
+            // BURN EFFECT: 6 seconds, flame, ash, progress, explosion
             btnCloseMsg.addEventListener('click',()=>{
                 initAudio();
-                playTone(300,0.5,'sawtooth',0.25);
+                playTone(280,0.5,'sawtooth',0.28);
                 vibrate(400);
                 startCracklingFire();
                 startAshShower();
@@ -737,7 +732,6 @@
                 document.body.appendChild(flameDiv);
                 document.body.appendChild(fireEmoji);
 
-                // Progress bar
                 const progressContainer = document.createElement('div');
                 progressContainer.className = 'burn-progress-bar';
                 const progressFill = document.createElement('div');
@@ -746,17 +740,10 @@
                 document.body.appendChild(progressContainer);
 
                 messageCard.classList.add('burning');
-                progressPercent = 0;
-                progressInterval = setInterval(()=>{
-                    progressPercent += 1;
-                    progressFill.style.width = progressPercent + '%';
-                    if(progressPercent >= 100) clearInterval(progressInterval);
-                }, 100);
+                let percent = 0;
+                progressInterval = setInterval(()=>{ percent += 1.66; progressFill.style.width = Math.min(percent,100)+'%'; if(percent>=100) clearInterval(progressInterval); }, 60);
 
-                // crackle sound every 0.3s
-                crackleInterval = setInterval(()=>{
-                    if(audioCtx) playTone(150+Math.random()*200, 0.1, 'triangle', 0.07);
-                }, 280);
+                crackleInterval = setInterval(()=>{ if(audioCtx) playTone(150+Math.random()*180, 0.1, 'triangle', 0.08); }, 250);
 
                 burnTimeout = setTimeout(()=>{
                     clearInterval(crackleInterval);
@@ -765,15 +752,14 @@
                     flameDiv.remove();
                     fireEmoji.remove();
                     progressContainer.remove();
-                    // Final explosion confetti burst
                     launchConfetti(true);
-                    for(let i=0;i<3;i++) setTimeout(()=>launchConfetti(true), i*200);
-                    playTone(600,0.4,'sine',0.3);
-                    playTone(800,0.5,'sine',0.3);
-                    vibrate(300);
+                    for(let i=0;i<4;i++) setTimeout(()=>launchConfetti(true), i*150);
+                    playTone(600,0.5,'sine',0.35);
+                    playTone(800,0.6,'sine',0.35);
+                    vibrate(400);
                     showScreen('screen-finale');
                     startFinaleCelebration();
-                }, 10000);
+                }, 6000);
             });
 
             function startFinaleCelebration(){
@@ -783,37 +769,29 @@
                 function addBalloon(){
                     const balloon = document.createElement('div');
                     balloon.className = 'balloon';
-                    const icons = ['🎈','🎈','🎉','🎂','✨','🎈','🎈'];
-                    balloon.innerText = icons[Math.floor(Math.random()*icons.length)];
+                    balloon.innerText = ['🎈','🎈','🎉','🎂','✨','🎈','🎈'][Math.floor(Math.random()*7)];
                     balloon.style.left = Math.random()*100 + '%';
                     balloon.style.fontSize = (Math.random()*2 + 2.2) + 'rem';
                     balloon.style.animationDuration = (Math.random()*4 + 5) + 's';
                     container.appendChild(balloon);
                     setTimeout(()=>balloon.remove(), 9000);
                 }
-                for(let i=0;i<25;i++) setTimeout(()=>addBalloon(), i*250);
-                setInterval(()=>{ if(document.getElementById('screen-finale').classList.contains('active')) addBalloon(); }, 800);
-                setInterval(()=>{ launchConfetti(true); }, 2200);
+                for(let i=0;i<30;i++) setTimeout(()=>addBalloon(), i*200);
+                setInterval(()=>{ if(document.getElementById('screen-finale').classList.contains('active')) addBalloon(); }, 700);
+                setInterval(()=>{ launchConfetti(true); }, 2000);
             }
 
-            // Starfield
+            // Starfield background
             const partCanvas = document.getElementById('particles');
             const pCtx = partCanvas.getContext('2d');
             function resizePart(){ partCanvas.width = innerWidth; partCanvas.height = innerHeight; }
             window.addEventListener('resize', resizePart);
             resizePart();
             let stars = [];
-            for(let i=0;i<120;i++){
-                stars.push({ x:Math.random()*partCanvas.width, y:Math.random()*partCanvas.height, r:Math.random()*2+1, alpha:Math.random()*0.6+0.2 });
-            }
+            for(let i=0;i<130;i++) stars.push({ x:Math.random()*partCanvas.width, y:Math.random()*partCanvas.height, r:Math.random()*2+1, alpha:Math.random()*0.6+0.2 });
             function animateStars(){
                 pCtx.clearRect(0,0,partCanvas.width,partCanvas.height);
-                stars.forEach(s=>{
-                    pCtx.beginPath();
-                    pCtx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-                    pCtx.fillStyle = `rgba(255,215,150,${s.alpha})`;
-                    pCtx.fill();
-                });
+                stars.forEach(s=>{ pCtx.beginPath(); pCtx.arc(s.x,s.y,s.r,0,Math.PI*2); pCtx.fillStyle = `rgba(255,215,150,${s.alpha})`; pCtx.fill(); });
                 requestAnimationFrame(animateStars);
             }
             animateStars();
