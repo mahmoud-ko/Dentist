@@ -49,7 +49,6 @@
             z-index: 0;
         }
         canvas#confetti { z-index: 100; }
-
         /* entry screen */
         #screen-entry {
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -70,6 +69,19 @@
             color: #ffe6b3;
             margin-bottom: 1rem;
         }
+        .cake-container {
+            perspective: 800px;
+        }
+        .cake {
+            transform: rotateX(18deg);
+            transform-style: preserve-3d;
+        }
+        .cake-layer {
+            transform-style: preserve-3d;
+        }
+        .layer-bottom { transform: translateZ(0px); }
+        .layer-middle { transform: translateZ(10px); }
+        .layer-top { transform: translateZ(20px); }
         .entry-question {
             font-size: clamp(1.5rem, 5vw, 2.2rem);
             color: #f3c682;
@@ -125,8 +137,7 @@
             25% { transform: translateX(-6px); }
             75% { transform: translateX(6px); }
         }
-
-        /* cake screen */
+        /* CAKE SCREEN - correct layering */
         #screen-cake {
             background: radial-gradient(circle at 30% 10%, #2b1b4e, #0c0820);
         }
@@ -137,7 +148,21 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
             gap: 10px;
+        }
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: gold;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleAnim 1s linear forwards;
+        }
+        @keyframes sparkleAnim {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
         }
         .cake-title { font-size: 2.2rem; color: #ffeaac; margin: 0.3rem; }
         .cake-subtitle { font-size: 1.3rem; color: #f3c26b; margin-bottom: 1rem; }
@@ -150,7 +175,7 @@
         }
         .cake {
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             align-items: center;
         }
         .cake-layer {
@@ -158,9 +183,40 @@
             border-radius: 50% / 20%;
             opacity: 0;
             transform: translateY(-100vh);
-            transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.5s;
-            margin-bottom: -8px;
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity 0.5s;
         }
+        /* الطبقة السفلى */
+        .layer-bottom {
+            width: 240px;
+            height: 70px;
+            background: radial-gradient(circle at 50% 30%, #ffb6c1, #ff6a88);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+        }
+        /* الوسط */
+        .layer-middle {
+            width: 190px;
+            height: 60px;
+            background: radial-gradient(circle at 50% 30%, #c3a6ff, #6f5bdc);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        /* الأعلى */
+        .layer-top {
+            width: 150px;
+            height: 50px;
+            background: radial-gradient(circle at 50% 30%, #ffd6e0, #f5576c);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+        }
+        .cake-layer::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }  
         .cake-layer.drop-in {
             opacity: 1;
             transform: translateY(0);
@@ -194,7 +250,6 @@
             border-radius: 50%;
             margin-top: 8px;
             box-shadow: 0 12px 20px rgba(0,0,0,0.5);
-            z-index: 0;
         }
         .cream-layer {
             position: relative;
@@ -203,7 +258,7 @@
             background: radial-gradient(circle, #fff8e7, #ffe4c4);
             border-radius: 50% / 40%;
             margin-top: -20px;
-            z-index: 4;
+            z-index: 5;
             opacity: 0;
             transform: scaleY(0);
             transform-origin: top;
@@ -212,6 +267,66 @@
         .cream-layer.show-cream {
             opacity: 1;
             transform: scaleY(1);
+        }
+        .cake-layer::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 10%;
+            width: 80%;
+            height: 12px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+        }
+        /* dripping effect */
+        .choco-drip {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .choco-drip span {
+            position: absolute;
+            top: 0;
+            width: 14px;
+            height: 0;
+            background: linear-gradient(#4b2e1e, #2b1a12);
+            border-radius: 10px;
+            animation: dripDown 1s ease forwards;
+        }
+        @keyframes dripDown {
+            from { height: 0; }
+            to { height: 20px; }
+        }
+        .cream-layer::before,
+        .cream-layer::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20%;
+            width: 12px;
+            height: 18px;
+            background: #fff4dc;
+            border-radius: 50%;
+            box-shadow:
+                40px 2px 0 #fff4dc,
+                80px -2px 0 #fff4dc;
+        }
+        .cream-layer::before {
+            left: 25%;
+        }
+        .cream-layer::after {
+            left: 65%;
+        }
+        .cream-layer span {
+            position: absolute;
+            bottom: -10px;
+            width: 10px;
+            height: 14px;
+            background: #fff4dc;
+            border-radius: 50%;
         }
         .candles-container {
             display: flex;
@@ -276,20 +391,6 @@
             font-weight: bold;
             cursor: pointer;
         }
-        /* sparkle effect */
-        .sparkle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: gold;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: sparkleAnim 1s linear forwards;
-        }
-        @keyframes sparkleAnim {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
-        }
         /* envelope */
         #screen-envelope { background: linear-gradient(145deg, #10101f, #1e1a3a); }
         .envelope-scene { text-align: center; }
@@ -346,6 +447,14 @@
             transition: 0.2s;
         }
         .btn-close:hover { transform: scale(1.02); }
+        .flame-canvas {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 30px;
+        }
         /* finale */
         #screen-finale {
             background: radial-gradient(ellipse at top, #2b2450, #0a041f);
@@ -385,6 +494,7 @@
     </style>
 </head>
 <body>
+    <canvas class="flame-canvas"></canvas>
     <canvas id="particles"></canvas>
     <canvas id="confetti"></canvas>
 
@@ -407,12 +517,15 @@
             <h2 class="cake-title">Ha! I knew it 😂</h2>
             <p class="cake-subtitle">Your royal cake, dropping from heaven 🥰</p>
             <div class="cake-container">
-                <div class="cake">
+               <div class="cake">
                     <div class="cake-plate"></div>
                     <div class="cake-layer layer-bottom" id="layerB"></div>
                     <div class="cake-layer layer-middle" id="layerM"></div>
                     <div class="cake-layer layer-top" id="layerT"></div>
-                    <div class="cream-layer" id="creamLayer"></div>
+                    <div class="cream-layer" id="creamLayer">
+                        <span style="left:40%"></span>
+                        <span style="left:55%"></span>
+                    </div>
                     <div id="candlesContainer" class="candles-container"></div>
                 </div>
             </div>
@@ -481,7 +594,7 @@
 
             function showScreen(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
-            // sparkles effect on cake
+            // Sparkles effect on cake
             function createSparkles() {
                 const cake = document.querySelector('.cake');
                 if(!cake) return;
@@ -492,7 +605,54 @@
                     s.style.top = Math.random() * 80 + 'px';
                     cake.appendChild(s);
                     setTimeout(() => s.remove(), 1000);
-                }, 400);
+                }, 200);
+            }
+
+            // Animated flame on canvas
+            function animateFlame(canvas) {
+                const ctx = canvas.getContext('2d');
+                function draw() {
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    const gradient = ctx.createRadialGradient(10,15,2,10,15,12);
+                    gradient.addColorStop(0,'#fff');
+                    gradient.addColorStop(0.3,'#ffcc00');
+                    gradient.addColorStop(1,'transparent');
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.ellipse(10,15,6,12,0,0,Math.PI*2);
+                    ctx.fill();
+                    requestAnimationFrame(draw);
+                }
+                draw();
+            }
+
+            // Bounce animation for cake
+            function bounceCake() {
+                const cake = document.querySelector('.cake');
+                if(cake) {
+                    cake.animate([
+                        { transform: 'translateY(0) rotateX(18deg)' },
+                        { transform: 'translateY(-10px) rotateX(18deg)' },
+                        { transform: 'translateY(0) rotateX(18deg)' }
+                    ], {
+                        duration: 300,
+                        easing: 'ease'
+                    });
+                }
+            }
+
+            // Add chocolate drips on cream
+            function addChocolateDrip() {
+                if(!creamLayer) return;
+                const drip = document.createElement('div');
+                drip.className = 'choco-drip';
+                for (let i = 0; i < 6; i++) {
+                    const d = document.createElement('span');
+                    d.style.left = (15 + i * 12) + '%';
+                    d.style.animationDelay = (i * 0.1) + 's';
+                    drip.appendChild(d);
+                }
+                creamLayer.appendChild(drip);
             }
 
             function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
@@ -514,8 +674,7 @@
 
             function playHappyBirthdayTune(){
                 if(!audioCtx) return;
-                const notes = [262,294,330,349,392,440,494,523];
-                notes.forEach((f,i)=> setTimeout(()=>playTone(f,0.2,'sine',0.15), i*200));
+                [262,294,330,349,392,440,494,523].forEach((f,i)=> setTimeout(()=>playTone(f,0.2,'sine',0.15), i*200));
             }
 
             function playChurchWeddingMusic(){
@@ -625,31 +784,38 @@
                 setTimeout(()=>{ showScreen('screen-cake'); startCakeDrop(); }, 700);
             });
 
-            // Correct cake drop sequence
+            // CORRECTED CAKE DROP FUNCTION
             function startCakeDrop(){
                 const layerB = document.getElementById('layerB');
                 const layerM = document.getElementById('layerM');
                 const layerT = document.getElementById('layerT');
 
+                // 1. Bottom layer (largest)
                 layerB.classList.add('drop-in');
                 playTone(220,0.2);
 
+                // 2. Middle layer
                 setTimeout(()=>{
                     layerM.classList.add('drop-in');
                     playTone(300,0.2);
                 }, 500);
 
+                // 3. Top layer (smallest)
                 setTimeout(()=>{
                     layerT.classList.add('drop-in');
                     playTone(400,0.2);
                 }, 1000);
 
+                // 4. Cream layer + effects
                 setTimeout(()=>{
                     creamLayer.classList.add('show-cream');
                     playTone(520,0.2);
-                    createSparkles();
+                    addChocolateDrip();     // add chocolate drips
+                    createSparkles();       // start sparkles
+                    bounceCake();           // bounce animation
                 }, 1500);
 
+                // 5. Candles
                 setTimeout(()=>{
                     createCandles();
                     document.querySelector('.candles-container').classList.add('show-candles');
@@ -737,6 +903,9 @@
                 setInterval(()=>{ if(document.getElementById('screen-finale').classList.contains('active')) addBalloon(); }, 700);
                 setInterval(()=>{ launchConfetti(true); }, 2000);
             }
+
+            // Start flame animation on canvas
+            document.querySelectorAll('.flame-canvas').forEach(c => animateFlame(c));
 
             // Starfield background
             const partCanvas = document.getElementById('particles');
