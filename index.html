@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🎂 EPIC BIRTHDAY CHAOS – Soulef</title>
+    <title>🎂 Birthday Mayhem – Soulef</title>
+    <!-- favicon dummy to avoid 404 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='85' font-size='80' text-anchor='middle' fill='%23ffcc00'>🎂</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -83,7 +85,6 @@
             flex-wrap: wrap;
             min-height: 140px;
             align-items: center;
-            transition: all 0.2s;
         }
         .btn {
             border: none;
@@ -94,21 +95,17 @@
             padding: 0.9rem 2rem;
             font-size: 1.1rem;
             transition: all 0.2s ease;
-            will-change: transform;
         }
         .btn-yes {
             background: linear-gradient(135deg, #e2b13b, #c47d2e);
             color: white;
             box-shadow: 0 5px 20px rgba(226,177,59,0.4);
-            transform-origin: center;
         }
         .btn-no {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(8px);
             color: #ffddbb;
             border: 1px solid rgba(255,215,0,0.4);
-            transform-origin: center;
-            transition: all 0.15s ease;
         }
         .btn-no.disabled {
             pointer-events: none;
@@ -128,7 +125,7 @@
             25% { transform: translateX(-6px); }
             75% { transform: translateX(6px); }
         }
-        /* cake screen */
+        /* CAKE SCREEN - correct layering */
         #screen-cake {
             background: radial-gradient(circle at 30% 10%, #2b1b4e, #0c0820);
         }
@@ -138,7 +135,6 @@
         .cake-container {
             display: flex;
             justify-content: center;
-            perspective: 800px;
             margin: 1rem auto;
         }
         .cake {
@@ -150,40 +146,95 @@
             align-items: center;
         }
         .cake-layer {
-            margin: 0 auto;
             border-radius: 14px;
             opacity: 0;
-            transform: translateY(-500px);
+            transform: translateY(-800px);
             transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.5s;
+            margin-bottom: -8px;
         }
-        .cake-layer.drop-in { opacity: 1; transform: translateY(0); }
-        .layer-bottom { width: 230px; height: 65px; background: linear-gradient(180deg, #e8a0bf, #bc6f9a); border-radius: 20px 20px 12px 12px; box-shadow: 0 5px 12px black; margin-bottom: 0; }
-        .layer-middle { width: 190px; height: 55px; background: linear-gradient(180deg, #fcb69f, #e58c6f); margin-top: -8px; }
-        .layer-top { width: 150px; height: 48px; background: linear-gradient(180deg, #b47cf2, #7b4dbf); margin-top: -8px; }
-        .cake-plate { width: 270px; height: 18px; background: #ddd; border-radius: 50%; margin-top: 2px; box-shadow: 0 8px 16px rgba(0,0,0,0.4); }
+        .cake-layer.drop-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .layer-bottom {
+            width: 230px;
+            height: 65px;
+            background: linear-gradient(180deg, #e8a0bf, #bc6f9a);
+            border-radius: 20px 20px 12px 12px;
+            box-shadow: 0 5px 12px black;
+            z-index: 1;
+        }
+        .layer-middle {
+            width: 190px;
+            height: 55px;
+            background: linear-gradient(180deg, #fcb69f, #e58c6f);
+            border-radius: 14px;
+            z-index: 2;
+        }
+        .layer-top {
+            width: 150px;
+            height: 48px;
+            background: linear-gradient(180deg, #b47cf2, #7b4dbf);
+            border-radius: 14px;
+            z-index: 3;
+        }
+        .cake-plate {
+            width: 270px;
+            height: 18px;
+            background: #ddd;
+            border-radius: 50%;
+            margin-top: 4px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            z-index: 0;
+        }
         .cream-layer {
-            width: 160px; height: 22px; background: #fff5e0; border-radius: 30px;
-            margin-top: -14px; position: relative; z-index: 2;
+            width: 160px;
+            height: 22px;
+            background: #fff5e0;
+            border-radius: 30px;
+            margin-top: -14px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 4;
             box-shadow: 0 2px 15px rgba(255,215,0,0.6);
-            opacity: 0; transform: scaleY(0);
+            opacity: 0;
+            transform: scaleY(0);
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
-        .cream-layer.show-cream { opacity: 1; transform: scaleY(1); }
+        .cream-layer.show-cream {
+            opacity: 1;
+            transform: scaleY(1);
+        }
         .candles-container {
-            display: flex; gap: 14px; justify-content: center;
-            margin-top: -55px; z-index: 5; position: relative;
-            opacity: 0; transform: translateY(-25px);
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            margin-top: -55px;
+            z-index: 5;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-25px);
             transition: opacity 0.5s, transform 0.5s;
         }
-        .candles-container.show-candles { opacity: 1; transform: translateY(0); }
+        .candles-container.show-candles {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .candle {
-            width: 11px; height: 48px;
+            width: 11px;
+            height: 48px;
             background: linear-gradient(180deg, #ff6b6b, #f4b642);
-            border-radius: 5px; cursor: pointer; position: relative;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
         }
         .candle-flame {
-            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-            width: 16px; height: 24px;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 24px;
             background: radial-gradient(ellipse, #ffdd77, #ff8800, transparent);
             border-radius: 50%;
             animation: flicker 0.3s infinite alternate;
@@ -192,19 +243,30 @@
             0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
             100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
         }
-        .candle-flame.blown { animation: blowOut 0.5s forwards; }
+        .candle-flame.blown {
+            animation: blowOut 0.5s forwards;
+        }
         @keyframes blowOut {
             0% { transform: translateX(-50%) scale(1); opacity: 1; }
             100% { transform: translateX(-50%) scale(1.7) translateY(-12px); opacity: 0; }
         }
         .blow-instruction {
-            margin-top: 1rem; background: #000000aa; display: inline-block;
-            padding: 0.5rem 1.2rem; border-radius: 50px; color: #ffefb9; font-weight: 500;
+            margin-top: 1rem;
+            background: #000000aa;
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            color: #ffefb9;
+            font-weight: 500;
         }
         .blow-all-btn {
-            margin-top: 0.8rem; background: #ffaa33; border: none;
-            padding: 0.6rem 1.3rem; border-radius: 50px; font-weight: bold;
-            font-family: 'Poppins', sans-serif; cursor: pointer; transition: 0.2s;
+            margin-top: 0.8rem;
+            background: #ffaa33;
+            border: none;
+            padding: 0.6rem 1.3rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
         }
         /* envelope */
         #screen-envelope { background: linear-gradient(145deg, #10101f, #1e1a3a); }
@@ -230,77 +292,15 @@
         /* message card */
         #screen-message {
             background: radial-gradient(circle, #262254, #0b0820);
-            position: relative;
         }
         .message-card {
             background: #fff9ef;
             max-width: 560px; width: 88%; padding: 2rem;
             border-radius: 48px 24px 48px 24px;
-            text-align: center; box-shadow: 0 30px 40px black;
-            transition: all 0.3s; position: relative; z-index: 15;
+            text-align: center;
+            box-shadow: 0 30px 40px black;
         }
-        .flame-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 200;
-            background: radial-gradient(circle, transparent 30%, rgba(255, 80, 0, 0.5) 80%);
-            mix-blend-mode: screen;
-            animation: flamePulse 0.12s infinite alternate;
-        }
-        @keyframes flamePulse {
-            0% { opacity: 0.7; filter: blur(3px); }
-            100% { opacity: 1; filter: blur(8px); background: radial-gradient(circle, transparent 20%, rgba(255, 60, 0, 0.7) 90%); }
-        }
-        .real-fire {
-            position: fixed; bottom: 15%; left: 50%; transform: translateX(-50%);
-            font-size: 8rem; pointer-events: none; z-index: 201;
-            text-shadow: 0 0 30px orange, 0 0 70px red;
-            animation: fireFlick 0.07s infinite;
-        }
-        @keyframes fireFlick {
-            0% { text-shadow: 0 0 20px #ffaa00, 0 0 40px #ff4400; transform: translateX(-50%) scale(1); }
-            100% { text-shadow: 0 0 50px #ff6600, 0 0 90px #ff0000; transform: translateX(-50%) scale(1.15); }
-        }
-        .message-card.burning {
-            animation: burnSlowly 6s forwards;
-        }
-        @keyframes burnSlowly {
-            0% { transform: scale(1); opacity: 1; filter: brightness(1); }
-            25% { transform: scale(1.02); filter: brightness(1.4) hue-rotate(8deg); }
-            50% { transform: scale(0.95); filter: brightness(2) hue-rotate(18deg); opacity: 0.9; }
-            75% { transform: scale(0.7) rotate(6deg); filter: brightness(2.8); opacity: 0.5; }
-            100% { transform: scale(0) rotate(20deg); filter: brightness(0); opacity: 0; visibility: hidden; }
-        }
-        .burn-progress-bar {
-            position: fixed; bottom: 30px; left: 20%; width: 60%; height: 10px;
-            background: #222; border-radius: 10px; z-index: 250; overflow: hidden;
-            box-shadow: 0 0 8px rgba(255,80,0,0.5);
-        }
-        .burn-progress-fill {
-            width: 0%; height: 100%; background: linear-gradient(90deg, #ffaa00, #ff3300);
-            border-radius: 10px; transition: width 0.05s linear;
-            box-shadow: 0 0 8px orange;
-        }
-        .ash-particle {
-            position: absolute; background: #4a3a2a; border-radius: 50%;
-            pointer-events: none; z-index: 202;
-            opacity: 0.9; animation: floatAsh 1.5s ease-out forwards;
-        }
-        @keyframes floatAsh {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(-200px) rotate(200deg); opacity: 0; }
-        }
-        .wind-wave {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(120deg, rgba(255,255,200,0.2) 0px, rgba(255,255,200,0.2) 3px, transparent 3px, transparent 35px);
-            pointer-events: none; z-index: 110;
-            animation: windMove 0.4s linear;
-        }
-        @keyframes windMove {
-            0% { background-position: -100% 0; opacity: 0; }
-            20% { opacity: 1; }
-            100% { background-position: 200% 0; opacity: 0; }
-        }
-        .message-title { font-size: 1.9rem; color: #b63a1a; margin-bottom: 0.3rem; }
+        .message-title { font-size: 1.9rem; color: #b63a1a; }
         .age-badge {
             background: linear-gradient(145deg, #fcb045, #fd1d1d);
             width: 85px; height: 85px; border-radius: 50%; margin: 1rem auto;
@@ -313,10 +313,17 @@
             font-size: 1.1rem; line-height: 1.6; margin: 1rem 0; color: #2d1f00;
         }
         .btn-close {
-            background: #b33b1c; border: none; padding: 0.7rem 2rem;
-            border-radius: 40px; color: white; font-weight: bold; cursor: pointer;
+            background: #b33b1c;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
             font-size: 1rem;
+            transition: 0.2s;
         }
+        .btn-close:hover { transform: scale(1.02); }
         /* finale */
         #screen-finale {
             background: radial-gradient(ellipse at top, #2b2450, #0a041f);
@@ -336,7 +343,7 @@
             font-size: 2.5rem; color: #ffecb3; text-shadow: 0 0 15px goldenrod;
             margin-bottom: 1rem;
         }
-        .finale-text p { font-size: 1.3rem; color: #ffd966; text-shadow: 0 1px 4px black; }
+        .finale-text p { font-size: 1.3rem; color: #ffd966; }
         .balloon {
             position: absolute; bottom: -80px; font-size: 3rem;
             pointer-events: none; animation: rise linear infinite; z-index: 5;
@@ -352,8 +359,6 @@
             .cake-plate { width: 220px; }
             .candle { width: 8px; height: 38px; }
             .finale-text h1 { font-size: 1.6rem; }
-            .finale-text p { font-size: 1rem; }
-            .real-fire { font-size: 5rem; bottom: 20%; }
         }
     </style>
 </head>
@@ -377,8 +382,8 @@
 
     <section id="screen-cake" class="screen">
         <div class="cake-scene">
-            <h2 class="cake-title">Ha! I knew it 🎊</h2>
-            <p class="cake-subtitle">Your royal cake, dropping from heaven 👇</p>
+            <h2 class="cake-title">Ha! I knew it 😂</h2>
+            <p class="cake-subtitle">Your royal cake, dropping from heaven 🥰</p>
             <div class="cake-container">
                 <div class="cake">
                     <div class="cake-layer layer-bottom" id="layerB"></div>
@@ -440,18 +445,12 @@
             let totalCandles = 5;
             let candlesBlown = 0;
             let audioCtx = null;
-            let crackleInterval = null;
-            let ashInterval = null;
-            let burnTimeout = null;
-            let progressInterval = null;
-            let fireNoiseSource = null;
 
             const screens = document.querySelectorAll('.screen');
             const btnYes = document.getElementById('btn-yes');
             const btnNo = document.getElementById('btn-no');
             const noCounter = document.getElementById('no-counter');
             const envelope = document.getElementById('envelope');
-            const messageCard = document.getElementById('messageCard');
             const btnCloseMsg = document.getElementById('btn-close');
             const blowAllBtn = document.getElementById('blowAllBtn');
             const blowInstruction = document.getElementById('blowInstruction');
@@ -463,84 +462,23 @@
             function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
             function playTone(freq, duration, type='sine', vol=0.25){
                 if(!audioCtx) return;
-                const now = audioCtx.currentTime;
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = type;
                 osc.frequency.value = freq;
                 gain.gain.value = vol;
-                gain.gain.exponentialRampToValueAtTime(0.001, now+duration);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start();
-                osc.stop(now+duration);
+                osc.stop(audioCtx.currentTime + duration);
             }
 
-            function startCracklingFire(){
+            function vibrate(dur=100){ if(navigator.vibrate) navigator.vibrate(dur); }
+
+            function playHappyBirthdayTune(){
                 if(!audioCtx) return;
-                const bufferSize = 4096;
-                const noiseNode = audioCtx.createScriptProcessor(bufferSize, 1, 1);
-                noiseNode.onaudioprocess = function(e) {
-                    const output = e.outputBuffer.getChannelData(0);
-                    for (let i = 0; i < bufferSize; i++) {
-                        output[i] = (Math.random() * 2 - 1) * 0.18;
-                    }
-                };
-                const filter = audioCtx.createBiquadFilter();
-                filter.type = 'bandpass';
-                filter.frequency.value = 700;
-                filter.Q.value = 1.2;
-                const gainNode = audioCtx.createGain();
-                gainNode.gain.value = 0.35;
-                noiseNode.connect(filter);
-                filter.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                fireNoiseSource = noiseNode;
-            }
-            function stopCracklingFire(){
-                if(fireNoiseSource){
-                    fireNoiseSource.disconnect();
-                    fireNoiseSource = null;
-                }
-            }
-
-            function createAshParticle(x, y){
-                const ash = document.createElement('div');
-                ash.className = 'ash-particle';
-                ash.style.left = x + '%';
-                ash.style.top = y + '%';
-                ash.style.width = Math.random()*10 + 5 + 'px';
-                ash.style.height = ash.style.width;
-                ash.style.background = `#${Math.floor(Math.random()*0x666666 + 0x333333).toString(16)}`;
-                document.body.appendChild(ash);
-                setTimeout(()=>ash.remove(), 1800);
-            }
-            
-            function startAshShower(){
-                ashInterval = setInterval(()=>{
-                    for(let i=0;i<12;i++){
-                        const randX = 25 + Math.random() * 50;
-                        const randY = 35 + Math.random() * 40;
-                        createAshParticle(randX, randY);
-                    }
-                }, 150);
-            }
-
-            function addWindEffect(){
-                const windDiv = document.createElement('div');
-                windDiv.className = 'wind-wave';
-                document.body.appendChild(windDiv);
-                setTimeout(()=>windDiv.remove(), 450);
-                playTone(140, 0.7, 'sawtooth', 0.13);
-            }
-
-            function vibrate(dur=100){
-                if(navigator.vibrate) navigator.vibrate(dur);
-            }
-
-            function playHappyShort(){
-                if(!audioCtx) return;
-                [262,294,330,349,392].forEach((f,i)=> setTimeout(()=>playTone(f,0.25,'sine',0.18), i*280));
+                [262,294,330,349,392,440,494,523].forEach((f,i)=> setTimeout(()=>playTone(f,0.2,'sine',0.15), i*200));
             }
 
             function playChurchWeddingMusic(){
@@ -578,7 +516,7 @@
 
             function successBeep(){ playTone(880, 0.12, 'sine', 0.2); vibrate(50); }
 
-            // Confetti system
+            // Confetti
             const confCanvas = document.getElementById('confetti');
             const confCtx = confCanvas.getContext('2d');
             let confParticles = [];
@@ -620,7 +558,7 @@
                 }
             }
 
-            // Entry button logic: up to 15 clicks, NO shrinks, YES grows to half screen
+            // Entry NO button logic (15 clicks max, shrinks, YES grows)
             const noMessages = [
                 "Really? 👀", "The crown says otherwise 🤥", "Your stupidity is glowing 🤩", "Last chance...",
                 "YES button is growing...", "JUST ADMIT IT 🎈", "Fine, but you know the truth 😏",
@@ -631,17 +569,15 @@
                 initAudio(); playTone(660,0.08);
                 if(noCount >= MAX_NO) return;
                 noCount++;
-                // Calculate scale: YES grows from 1 to max 2.5 (half screen relative)
-                let yesScale = Math.min(1 + noCount * 0.1, 2.8);
+                let yesScale = Math.min(1 + noCount * 0.12, 2.8);
                 btnYes.style.transform = `scale(${yesScale})`;
-                // NO shrinks to 0.2
                 let noScale = Math.max(1 - noCount * 0.055, 0.2);
                 btnNo.style.transform = `scale(${noScale}) translate(${(Math.random()-0.5)*noCount*5}px, ${(Math.random()-0.5)*4}px)`;
                 let msgIndex = Math.min(noCount-1, noMessages.length-1);
                 noCounter.textContent = noMessages[msgIndex];
                 if(noCount === MAX_NO) {
                     btnNo.classList.add('disabled');
-                    noCounter.textContent = "🤣 Alright! No more escapes! Click YES! 👑";
+                    noCounter.textContent = "🤣 No escape! Click YES, queen! 👑";
                 }
                 noCounter.classList.add('shake');
                 setTimeout(()=>noCounter.classList.remove('shake'),300);
@@ -652,18 +588,25 @@
                 setTimeout(()=>{ showScreen('screen-cake'); startCakeDrop(); }, 700);
             });
 
+            // Cake drop: bottom (largest) first, then middle, then top (smallest), then cream, then candles
             function startCakeDrop(){
-                document.getElementById('layerB').classList.add('drop-in');
-                setTimeout(()=> document.getElementById('layerM').classList.add('drop-in'), 200);
-                setTimeout(()=> document.getElementById('layerT').classList.add('drop-in'), 400);
-                setTimeout(()=>{ creamLayer.classList.add('show-cream'); playTone(480,0.2); }, 650);
+                const layerB = document.getElementById('layerB');
+                const layerM = document.getElementById('layerM');
+                const layerT = document.getElementById('layerT');
+                layerB.classList.add('drop-in');
+                setTimeout(()=> layerM.classList.add('drop-in'), 250);
+                setTimeout(()=> layerT.classList.add('drop-in'), 500);
+                setTimeout(()=>{
+                    creamLayer.classList.add('show-cream');
+                    playTone(480,0.2);
+                }, 750);
                 setTimeout(()=>{
                     createCandles();
                     document.querySelector('.candles-container').classList.add('show-candles');
                     blowAllBtn.style.display = 'inline-block';
                     blowInstruction.innerText = `🕯️ Click each candle to blow them out! (${totalCandles} left)`;
-                    playHappyShort();
-                }, 1000);
+                    playHappyBirthdayTune();
+                }, 1100);
             }
 
             function createCandles(){
@@ -693,13 +636,12 @@
             }
 
             blowAllBtn.addEventListener('click',()=>{
-                addWindEffect();
                 document.querySelectorAll('.candle-flame').forEach(flame=>{
                     if(!flame.classList.contains('blown')){ flame.classList.add('blown'); candlesBlown++; }
                 });
-                vibrate(120);
+                vibrate(100);
                 playTone(310,0.4,'triangle',0.2);
-                blowInstruction.innerText = "✨ Whoosh! All blown! ✨";
+                blowInstruction.innerText = "✨ Whoosh! All candles blown! ✨";
                 if(candlesBlown >= totalCandles){
                     successBeep(); launchConfetti(true);
                     setTimeout(()=> showScreen('screen-envelope'), 1300);
@@ -716,50 +658,16 @@
                 }, 700);
             });
 
-            // BURN EFFECT: 6 seconds, flame, ash, progress, explosion
+            // Direct transition to finale - no burn animation
             btnCloseMsg.addEventListener('click',()=>{
                 initAudio();
-                playTone(280,0.5,'sawtooth',0.28);
-                vibrate(400);
-                startCracklingFire();
-                startAshShower();
-
-                const flameDiv = document.createElement('div');
-                flameDiv.className = 'flame-overlay';
-                const fireEmoji = document.createElement('div');
-                fireEmoji.className = 'real-fire';
-                fireEmoji.innerHTML = '🔥🔥🔥';
-                document.body.appendChild(flameDiv);
-                document.body.appendChild(fireEmoji);
-
-                const progressContainer = document.createElement('div');
-                progressContainer.className = 'burn-progress-bar';
-                const progressFill = document.createElement('div');
-                progressFill.className = 'burn-progress-fill';
-                progressContainer.appendChild(progressFill);
-                document.body.appendChild(progressContainer);
-
-                messageCard.classList.add('burning');
-                let percent = 0;
-                progressInterval = setInterval(()=>{ percent += 1.66; progressFill.style.width = Math.min(percent,100)+'%'; if(percent>=100) clearInterval(progressInterval); }, 60);
-
-                crackleInterval = setInterval(()=>{ if(audioCtx) playTone(150+Math.random()*180, 0.1, 'triangle', 0.08); }, 250);
-
-                burnTimeout = setTimeout(()=>{
-                    clearInterval(crackleInterval);
-                    clearInterval(ashInterval);
-                    stopCracklingFire();
-                    flameDiv.remove();
-                    fireEmoji.remove();
-                    progressContainer.remove();
-                    launchConfetti(true);
-                    for(let i=0;i<4;i++) setTimeout(()=>launchConfetti(true), i*150);
-                    playTone(600,0.5,'sine',0.35);
-                    playTone(800,0.6,'sine',0.35);
-                    vibrate(400);
-                    showScreen('screen-finale');
-                    startFinaleCelebration();
-                }, 6000);
+                playTone(600,0.4,'sine',0.4);
+                playTone(800,0.5,'sine',0.4);
+                vibrate(200);
+                launchConfetti(true);
+                for(let i=0;i<3;i++) setTimeout(()=>launchConfetti(true), i*200);
+                showScreen('screen-finale');
+                startFinaleCelebration();
             });
 
             function startFinaleCelebration(){
@@ -776,7 +684,7 @@
                     container.appendChild(balloon);
                     setTimeout(()=>balloon.remove(), 9000);
                 }
-                for(let i=0;i<30;i++) setTimeout(()=>addBalloon(), i*200);
+                for(let i=0;i<35;i++) setTimeout(()=>addBalloon(), i*180);
                 setInterval(()=>{ if(document.getElementById('screen-finale').classList.contains('active')) addBalloon(); }, 700);
                 setInterval(()=>{ launchConfetti(true); }, 2000);
             }
