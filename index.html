@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🎂 Birthday Chaos – Soulef's Epic Day</title>
+    <title>🎂 Birthday Mayhem – Soulef</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -21,7 +21,6 @@
             background: #1a1a2e;
         }
 
-        /* screens */
         .screen {
             position: fixed;
             top: 0;
@@ -159,22 +158,23 @@
             background: linear-gradient(180deg, #e8a0bf, #bc6f9a);
             border-radius: 20px 20px 12px 12px;
             box-shadow: 0 5px 12px black;
+            margin-bottom: -8px;
         }
         .layer-middle {
             width: 190px; height: 55px;
             background: linear-gradient(180deg, #fcb69f, #e58c6f);
-            margin-top: -8px;
+            margin-bottom: -8px;
         }
         .layer-top {
             width: 150px; height: 48px;
             background: linear-gradient(180deg, #b47cf2, #7b4dbf);
-            margin-top: -8px;
+            margin-bottom: -6px;
         }
         .cake-plate {
             width: 270px; height: 18px;
             background: #ddd;
             border-radius: 50%;
-            margin: -6px auto 0;
+            margin-top: 2px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
         .cream-layer {
@@ -194,7 +194,7 @@
             display: flex;
             gap: 14px;
             justify-content: center;
-            margin-top: -58px;
+            margin-top: -55px;
             z-index: 5;
             position: relative;
             opacity: 0;
@@ -291,7 +291,7 @@
         .envelope-seal { font-size: 3rem; }
         .tap-hint { margin-top: 1rem; color: #bbaaff; }
 
-        /* message card - clean, no romantic emojis */
+        /* message card - clean, high contrast */
         #screen-message {
             background: radial-gradient(circle, #262254, #0b0820);
         }
@@ -350,7 +350,7 @@
             font-size: 1rem;
         }
 
-        /* finale */
+        /* finale - improved text visibility */
         #screen-finale {
             background: radial-gradient(ellipse at top, #2b2450, #0a041f);
             overflow: hidden;
@@ -365,14 +365,32 @@
         }
         .finale-text {
             text-align: center;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(15px);
+            padding: 2rem 2rem;
             border-radius: 70px;
             z-index: 20;
+            border: 1px solid rgba(255,215,0,0.4);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
-        .finale-text h1 { font-size: 2.5rem; color: #ffdd99; text-shadow: 0 0 20px gold; animation: glowPulse 1.5s infinite; }
-        @keyframes glowPulse { 0% { text-shadow: 0 0 8px gold; } 100% { text-shadow: 0 0 28px #ffaa55; } }
+        .finale-text h1 { 
+            font-size: 2.5rem; 
+            color: #ffecb3; 
+            text-shadow: 0 0 15px goldenrod, 0 2px 5px black;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .finale-text p { 
+            font-size: 1.3rem; 
+            color: #ffd966; 
+            text-shadow: 0 1px 4px black;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        @keyframes glowPulse { 
+            0% { text-shadow: 0 0 8px gold, 0 2px 4px black; } 
+            100% { text-shadow: 0 0 28px #ffaa55, 0 2px 6px black; } 
+        }
         .balloon {
             position: absolute;
             bottom: -80px;
@@ -392,6 +410,8 @@
             .layer-top { width: 120px; height: 40px; }
             .cake-plate { width: 220px; }
             .candle { width: 8px; height: 38px; }
+            .finale-text h1 { font-size: 1.6rem; }
+            .finale-text p { font-size: 1rem; }
         }
     </style>
 </head>
@@ -414,7 +434,7 @@
         </div>
     </section>
 
-    <!-- SCREEN 2: Cake drop animation (layers from sky, cream, then candles) -->
+    <!-- SCREEN 2: Cake drop layers + cream + candles (fixed orientation) -->
     <section id="screen-cake" class="screen">
         <div class="cake-scene">
             <h2 class="cake-title">Ha! I knew it 🎊</h2>
@@ -447,7 +467,7 @@
         </div>
     </section>
 
-    <!-- SCREEN 4: Message (clean, no romantic emojis, proper burn) -->
+    <!-- SCREEN 4: Message (clean, burn effect) -->
     <section id="screen-message" class="screen">
         <div class="message-scene">
             <div class="message-card" id="messageCard">
@@ -464,28 +484,25 @@
         </div>
     </section>
 
-    <!-- SCREEN 5: Finale with church wedding music (loud & clear) -->
+    <!-- SCREEN 5: Finale with church wedding music (clear, no overlap) -->
     <section id="screen-finale" class="screen">
         <div class="finale-scene">
             <div id="balloonsArea"></div>
             <div class="finale-text">
                 <h1>🥳 Happy 19, Soulef! 🥳</h1>
                 <p>May your legendary stupidity bring infinite laughter</p>
-                <div style="margin-top:1rem;">💒✨ Church bells & celebration ✨🎂</div>
+                <div style="margin-top:1rem; font-size:1rem;">💒✨ Church bells & celebration ✨🎂</div>
             </div>
         </div>
     </section>
 
     <script>
         (function(){
-            // state
             let noCount = 0;
             let totalCandles = 5;
             let candlesBlown = 0;
             let audioCtx = null;
-            let churchOsc = null;  // for continuous? we'll use scheduled notes.
 
-            // DOM elements
             const screens = document.querySelectorAll('.screen');
             const btnYes = document.getElementById('btn-yes');
             const btnNo = document.getElementById('btn-no');
@@ -500,7 +517,6 @@
 
             function showScreen(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
-            // ----- audio context & helpers (no overlapping garbage) -----
             function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
             function playTone(freq, duration, type='sine', vol=0.25){
                 if(!audioCtx) return;
@@ -517,10 +533,10 @@
                 osc.stop(now+duration);
             }
 
-            // Pure Church Wedding Music (organ style, longer & clear, no overlap with other melodies)
+            // Church wedding music (clear, loud, no interference)
             function playChurchWeddingMusic(){
                 if(!audioCtx) return;
-                // Classic bridal chorus phrase (Wagner / traditional)
+                // Traditional processional / wedding march style (organ)
                 const melody = [
                     523, 587, 659, 523,  659, 587, 523, 494,
                     440, 440, 494, 523,  523, 523, 523, 659,
@@ -531,36 +547,36 @@
                 melody.forEach((freq, idx) => {
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
-                    osc.type = 'triangle'; // organ-like
+                    osc.type = 'triangle';
                     osc.frequency.value = freq;
-                    gain.gain.value = 0.28;
-                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.35);
+                    gain.gain.value = 0.32;
+                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.38);
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
                     osc.start(startTime);
-                    osc.stop(startTime + 0.35);
-                    startTime += 0.4;
+                    osc.stop(startTime + 0.38);
+                    startTime += 0.42;
                 });
-                // final long note
+                // Final sustain
                 setTimeout(()=>{
                     if(audioCtx){
                         const osc2 = audioCtx.createOscillator();
                         const gain2 = audioCtx.createGain();
                         osc2.type = 'triangle';
                         osc2.frequency.value = 659;
-                        gain2.gain.value = 0.3;
-                        gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.2);
+                        gain2.gain.value = 0.35;
+                        gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
                         osc2.connect(gain2);
                         gain2.connect(audioCtx.destination);
                         osc2.start();
-                        osc2.stop(audioCtx.currentTime + 2.2);
+                        osc2.stop(audioCtx.currentTime + 2.5);
                     }
-                }, 13000);
+                }, 14500);
             }
 
             function successBeep(){ playTone(880, 0.12, 'sine', 0.2); }
-            
-            // ----- confetti system -----
+
+            // confetti
             const confCanvas = document.getElementById('confetti');
             const confCtx = confCanvas.getContext('2d');
             let confParticles = [];
@@ -601,7 +617,7 @@
                 }
             }
 
-            // ---------- ENTRY SCREEN (stupid question) ----------
+            // entry screen logic
             const noMessages = ["Really? 👀", "The crown says otherwise 🤥", "Your stupidity is glowing 🤩", "Last chance...", "YES button is getting bigger...", "JUST ADMIT IT 🎈", "Fine, but you know the truth 😏", "Ok ok you’re smart, but click YES", "🤭🤭", "OK THEN CELEBRATE!"];
             btnNo.addEventListener('click',()=>{
                 initAudio(); playTone(660,0.08);
@@ -619,7 +635,7 @@
                 setTimeout(()=>{ showScreen('screen-cake'); startCakeDrop(); }, 700);
             });
 
-            // ----- CAKE DROP: LAYERS ONE BY ONE, THEN CREAM, THEN CANDLES -----
+            // CAKE DROP: layers one by one, then cream, then candles
             function startCakeDrop(){
                 const layerB = document.getElementById('layerB');
                 const layerM = document.getElementById('layerM');
@@ -637,7 +653,6 @@
                     candlesDiv.classList.add('show-candles');
                     blowAllBtn.style.display = 'inline-block';
                     blowInstruction.innerText = `🕯️ Click each candle to blow them out! (${totalCandles - candlesBlown} left)`;
-                    // NO HAPPY BIRTHDAY MELODY HERE to avoid overlap. Only church later.
                 }, 1000);
             }
 
@@ -659,9 +674,7 @@
                         if(candlesBlown === totalCandles){
                             blowInstruction.innerText = "✨ Make a wish! ✨";
                             successBeep(); launchConfetti();
-                            setTimeout(()=>{
-                                showScreen('screen-envelope');
-                            }, 1500);
+                            setTimeout(()=>{ showScreen('screen-envelope'); }, 1500);
                         }
                     });
                     candlesContainer.appendChild(candle);
@@ -684,7 +697,7 @@
                 }
             });
 
-            // ---------- ENVELOPE ----------
+            // envelope
             envelope.addEventListener('click',()=>{
                 initAudio(); playTone(660,0.12);
                 envelope.classList.add('opening');
@@ -694,7 +707,7 @@
                 }, 700);
             });
 
-            // ---------- MESSAGE BURN (clean burn effect) ----------
+            // message burn
             btnCloseMsg.addEventListener('click',()=>{
                 initAudio(); playTone(420,0.2,'sawtooth',0.2);
                 messageCard.classList.add('burn');
@@ -706,9 +719,7 @@
 
             function startFinaleCelebration(){
                 launchConfetti();
-                // play ONLY church wedding music (clear, loud enough)
                 if(audioCtx) playChurchWeddingMusic();
-                // balloons
                 const container = document.getElementById('balloonsArea');
                 function addBalloon(){
                     const balloon = document.createElement('div');
@@ -718,7 +729,6 @@
                     balloon.style.left = Math.random()*100 + '%';
                     balloon.style.fontSize = (Math.random()*2 + 2.2) + 'rem';
                     balloon.style.animationDuration = (Math.random()*4 + 5) + 's';
-                    balloon.style.animationDelay = Math.random()*0.5+'s';
                     container.appendChild(balloon);
                     setTimeout(()=>balloon.remove(), 9000);
                 }
@@ -727,7 +737,7 @@
                 setInterval(()=>{ launchConfetti(); }, 2800);
             }
 
-            // particle background (subtle stars)
+            // particle background
             const partCanvas = document.getElementById('particles');
             const pCtx = partCanvas.getContext('2d');
             function resizePart(){ partCanvas.width = innerWidth; partCanvas.height = innerHeight; }
