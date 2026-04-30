@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>🎂 Birthday Mayhem – Soulef</title>
-    <!-- favicon dummy to avoid 404 -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='85' font-size='80' text-anchor='middle' fill='%23ffcc00'>🎂</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -50,6 +49,7 @@
             z-index: 0;
         }
         canvas#confetti { z-index: 100; }
+
         /* entry screen */
         #screen-entry {
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -125,92 +125,46 @@
             25% { transform: translateX(-6px); }
             75% { transform: translateX(6px); }
         }
-        /* CAKE SCREEN - correct layering */
+
+        /* cake screen */
         #screen-cake {
             background: radial-gradient(circle at 30% 10%, #2b1b4e, #0c0820);
         }
         .cake-scene {
-    text-align: center;
-    padding: 1rem;
-    width: 100%;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-
-    gap: 10px;
-}
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
         .cake-title { font-size: 2.2rem; color: #ffeaac; margin: 0.3rem; }
         .cake-subtitle { font-size: 1.3rem; color: #f3c26b; margin-bottom: 1rem; }
-      .cake-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end; /* يخلي الكعكة تنزل لتحت */
-    
-    height: 320px; /* مهم جداً */
-    margin-top: 10px;
-}
-      .cake {
-    display: flex;
-    flex-direction: column-reverse; /* هذا هو السر */
-    align-items: center;
-}
-        .cake-layer {
-            border-radius: 14px;
-            opacity: 0;
-            
-            transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.5s;
-            
+        .cake-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 320px;
+            margin-top: 10px;
         }
-.cake-layer {
-    border-radius: 14px;
-    opacity: 0;
-    transform: translateY(-100vh); /* سقوط من السماء */
-    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.5s;
-    position: relative;
-}
-
-/* كل طبقة يكون عندها مكانها الطبيعي */
-.layer-bottom {
-    width: 230px;
-    height: 65px;
-    background: linear-gradient(180deg, #ff9a9e, #ff6a88);
-    border-radius: 20px 20px 14px 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-
-.layer-middle {
-    width: 190px;
-    height: 55px;
-    background: linear-gradient(180deg, #a18cd1, #6f5bdc);
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.layer-top {
-    width: 150px;
-    height: 48px;
-    background: linear-gradient(180deg, #fbc2eb, #f5576c);
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-}
-
- .cake-layer::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    width: 80%;
-    height: 6px;
-    background: rgba(255,255,255,0.6);
-    border-radius: 10px;
-}       
-.cake-layer.drop-in {
-    opacity: 1;
-    transform: translateY(0);
-}
+        .cake {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .cake-layer {
+            position: relative;
+            border-radius: 50% / 20%;
+            opacity: 0;
+            transform: translateY(-100vh);
+            transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.5s;
+            margin-bottom: -8px;
+        }
+        .cake-layer.drop-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .layer-bottom {
             width: 230px;
             height: 65px;
@@ -234,66 +188,31 @@
             z-index: 3;
         }
         .cake-plate {
-            width: 270px;
-            height: 18px;
-            background: #ddd;
+            width: 260px;
+            height: 22px;
+            background: radial-gradient(circle, #eee, #bbb);
             border-radius: 50%;
-            margin-top: 4px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            margin-top: 8px;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.5);
             z-index: 0;
         }
-       .cream-layer {
-    position: relative;
-    width: 160px;
-    height: 30px;
-    background: #fff4dc;
-    border-radius: 20px;
-    margin-top: -18px;
-    z-index: 5;
-
-    opacity: 0;
-    transform: scaleY(0);
-    transform-origin: top;
-
-    transition: all 0.5s ease;
-}
-
-/* ظهور الكريمة */
-.cream-layer.show-cream {
-    opacity: 1;
-    transform: scaleY(1);
-}
-
-/* dripping effect */
-.cream-layer::before,
-.cream-layer::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    width: 14px;
-    height: 18px;
-    background: #fff4dc;
-    border-radius: 50%;
-}
-
-/* قطرات */
-.cream-layer::before {
-    left: 25%;
-}
-
-.cream-layer::after {
-    left: 65%;
-}
-
-/* قطرات إضافية */
-.cream-layer span {
-    position: absolute;
-    bottom: -10px;
-    width: 10px;
-    height: 14px;
-    background: #fff4dc;
-    border-radius: 50%;
-}
+        .cream-layer {
+            position: relative;
+            width: 160px;
+            height: 30px;
+            background: radial-gradient(circle, #fff8e7, #ffe4c4);
+            border-radius: 50% / 40%;
+            margin-top: -20px;
+            z-index: 4;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: all 0.5s ease;
+        }
+        .cream-layer.show-cream {
+            opacity: 1;
+            transform: scaleY(1);
+        }
         .candles-container {
             display: flex;
             gap: 14px;
@@ -356,6 +275,20 @@
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
+        }
+        /* sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: gold;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleAnim 1s linear forwards;
+        }
+        @keyframes sparkleAnim {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
         }
         /* envelope */
         #screen-envelope { background: linear-gradient(145deg, #10101f, #1e1a3a); }
@@ -474,18 +407,14 @@
             <h2 class="cake-title">Ha! I knew it 😂</h2>
             <p class="cake-subtitle">Your royal cake, dropping from heaven 🥰</p>
             <div class="cake-container">
-               <div class="cake">
-    <div class="cake-plate"></div>
-
-    <div class="cake-layer layer-bottom" id="layerB"></div>
-    <div class="cake-layer layer-middle" id="layerM"></div>
-    <div class="cake-layer layer-top" id="layerT"></div>
-<div class="cream-layer" id="creamLayer">
-    <span style="left:40%"></span>
-    <span style="left:55%"></span>
-</div>
-    <div id="candlesContainer" class="candles-container"></div>
-</div>
+                <div class="cake">
+                    <div class="cake-plate"></div>
+                    <div class="cake-layer layer-bottom" id="layerB"></div>
+                    <div class="cake-layer layer-middle" id="layerM"></div>
+                    <div class="cake-layer layer-top" id="layerT"></div>
+                    <div class="cream-layer" id="creamLayer"></div>
+                    <div id="candlesContainer" class="candles-container"></div>
+                </div>
             </div>
             <button id="blowAllBtn" class="blow-all-btn" style="display: none;">💨 Blow all candles at once 💨</button>
             <p id="blowInstruction" class="blow-instruction"></p>
@@ -552,6 +481,20 @@
 
             function showScreen(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
+            // sparkles effect on cake
+            function createSparkles() {
+                const cake = document.querySelector('.cake');
+                if(!cake) return;
+                setInterval(() => {
+                    const s = document.createElement('div');
+                    s.className = 'sparkle';
+                    s.style.left = Math.random() * 200 + 'px';
+                    s.style.top = Math.random() * 80 + 'px';
+                    cake.appendChild(s);
+                    setTimeout(() => s.remove(), 1000);
+                }, 400);
+            }
+
             function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
             function playTone(freq, duration, type='sine', vol=0.25){
                 if(!audioCtx) return;
@@ -571,7 +514,8 @@
 
             function playHappyBirthdayTune(){
                 if(!audioCtx) return;
-                [262,294,330,349,392,440,494,523].forEach((f,i)=> setTimeout(()=>playTone(f,0.2,'sine',0.15), i*200));
+                const notes = [262,294,330,349,392,440,494,523];
+                notes.forEach((f,i)=> setTimeout(()=>playTone(f,0.2,'sine',0.15), i*200));
             }
 
             function playChurchWeddingMusic(){
@@ -651,7 +595,7 @@
                 }
             }
 
-            // Entry NO button logic (15 clicks max, shrinks, YES grows)
+            // Entry NO button logic
             const noMessages = [
                 "Really? 👀", "The crown says otherwise 🤥", "Your stupidity is glowing 🤩", "Last chance...",
                 "YES button is growing...", "JUST ADMIT IT 🎈", "Fine, but you know the truth 😏",
@@ -681,43 +625,39 @@
                 setTimeout(()=>{ showScreen('screen-cake'); startCakeDrop(); }, 700);
             });
 
-            // Cake drop: bottom (largest) first, then middle, then top (smallest), then cream, then candles
-           function startCakeDrop(){
-    const layerB = document.getElementById('layerB');
-    const layerM = document.getElementById('layerM');
-    const layerT = document.getElementById('layerT');
+            // Correct cake drop sequence
+            function startCakeDrop(){
+                const layerB = document.getElementById('layerB');
+                const layerM = document.getElementById('layerM');
+                const layerT = document.getElementById('layerT');
 
-    // 1. الكبيرة (الأسفل)
-    layerB.classList.add('drop-in');
-    playTone(220,0.2);
+                layerB.classList.add('drop-in');
+                playTone(220,0.2);
 
-    // 2. الوسط
-    setTimeout(()=>{
-        layerM.classList.add('drop-in');
-        playTone(300,0.2);
-    }, 500);
+                setTimeout(()=>{
+                    layerM.classList.add('drop-in');
+                    playTone(300,0.2);
+                }, 500);
 
-    // 3. الصغيرة (الأعلى)
-    setTimeout(()=>{
-        layerT.classList.add('drop-in');
-        playTone(400,0.2);
-    }, 1000);
+                setTimeout(()=>{
+                    layerT.classList.add('drop-in');
+                    playTone(400,0.2);
+                }, 1000);
 
-    // 4. الكريمة
-    setTimeout(()=>{
-        creamLayer.classList.add('show-cream');
-        playTone(520,0.2);
-    }, 1500);
+                setTimeout(()=>{
+                    creamLayer.classList.add('show-cream');
+                    playTone(520,0.2);
+                    createSparkles();
+                }, 1500);
 
-    // 5. الشموع
-    setTimeout(()=>{
-        createCandles();
-        document.querySelector('.candles-container').classList.add('show-candles');
-        blowAllBtn.style.display = 'inline-block';
-        blowInstruction.innerText = `🕯️ Click each candle! (${totalCandles} left)`;
-        playHappyBirthdayTune();
-    }, 1900);
-}
+                setTimeout(()=>{
+                    createCandles();
+                    document.querySelector('.candles-container').classList.add('show-candles');
+                    blowAllBtn.style.display = 'inline-block';
+                    blowInstruction.innerText = `🕯️ Click each candle! (${totalCandles} left)`;
+                    playHappyBirthdayTune();
+                }, 2000);
+            }
 
             function createCandles(){
                 candlesContainer.innerHTML = '';
@@ -768,7 +708,6 @@
                 }, 700);
             });
 
-            // Direct transition to finale - no burn animation
             btnCloseMsg.addEventListener('click',()=>{
                 initAudio();
                 playTone(600,0.4,'sine',0.4);
