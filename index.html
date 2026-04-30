@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🎂 Birthday Mayhem – Soulef's Special Day</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <title>🎂 Birthday Chaos – Soulef's Epic Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -138,6 +138,9 @@
             position: relative;
             width: 280px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .cake-layer {
             margin: 0 auto;
@@ -145,6 +148,7 @@
             opacity: 0;
             transform: translateY(-500px);
             transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.5s;
+            width: 100%;
         }
         .cake-layer.drop-in {
             opacity: 1;
@@ -174,8 +178,8 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
         .cream-layer {
-            width: 160px; height: 20px;
-            background: #fffae6;
+            width: 160px; height: 22px;
+            background: #fff5e0;
             border-radius: 30px;
             margin: -14px auto 0;
             position: relative;
@@ -287,7 +291,7 @@
         .envelope-seal { font-size: 3rem; }
         .tap-hint { margin-top: 1rem; color: #bbaaff; }
 
-        /* message card */
+        /* message card - clean, no romantic emojis */
         #screen-message {
             background: radial-gradient(circle, #262254, #0b0820);
         }
@@ -307,9 +311,9 @@
         }
         @keyframes burnCard {
             0% { transform: scale(1); filter: brightness(1); opacity: 1; }
-            30% { transform: scale(1.05); filter: brightness(1.8) hue-rotate(10deg); box-shadow: 0 0 60px orange; }
+            30% { transform: scale(1.05); filter: brightness(1.8) hue-rotate(10deg); box-shadow: 0 0 70px rgb(255, 100, 0); }
             70% { transform: scale(0.92); filter: brightness(2.5); opacity: 0.7; }
-            100% { transform: scale(0) rotate(8deg); filter: brightness(0); opacity: 0; visibility: hidden; }
+            100% { transform: scale(0) rotate(6deg); filter: brightness(0); opacity: 0; visibility: hidden; }
         }
         .message-title { font-size: 1.9rem; color: #b63a1a; margin-bottom: 0.3rem; }
         .age-badge {
@@ -395,13 +399,13 @@
     <canvas id="particles"></canvas>
     <canvas id="confetti"></canvas>
 
-    <!-- SCREEN 1: The iconic question -->
+    <!-- SCREEN 1: Entry -->
     <section id="screen-entry" class="screen active">
         <div class="entry-content">
             <div class="crown-icon">👑🤔</div>
             <h1 class="entry-title">Hold up, genius...</h1>
             <p class="entry-question">Are you <span class="highlight">stupid</span>?</p>
-            <p class="entry-subtitle">Be honest, queen of chaos 👀</p>
+            <p class="entry-subtitle">Be honest, birthday queen 👀</p>
             <div class="buttons-container">
                 <button id="btn-yes" class="btn btn-yes">YES! obviously 🎉</button>
                 <button id="btn-no" class="btn btn-no">No way 😤</button>
@@ -410,11 +414,11 @@
         </div>
     </section>
 
-    <!-- SCREEN 2: Epic cake drop -->
+    <!-- SCREEN 2: Cake drop animation (layers from sky, cream, then candles) -->
     <section id="screen-cake" class="screen">
         <div class="cake-scene">
             <h2 class="cake-title">Ha! I knew it 🎊</h2>
-            <p class="cake-subtitle">Your royal cake, served from heaven 👇</p>
+            <p class="cake-subtitle">Your royal cake, dropping from heaven 👇</p>
             <div class="cake-container">
                 <div class="cake">
                     <div class="cake-layer layer-bottom" id="layerB"></div>
@@ -443,43 +447,43 @@
         </div>
     </section>
 
-    <!-- SCREEN 4: Funny Message (English) -->
+    <!-- SCREEN 4: Message (clean, no romantic emojis, proper burn) -->
     <section id="screen-message" class="screen">
         <div class="message-scene">
             <div class="message-card" id="messageCard">
                 <div class="message-title">🎂 Happy Birthday Soulef 🎂</div>
                 <div class="age-badge"><span class="age-number">19</span><span>years</span></div>
                 <div class="message-text">
-                    You've turned 19, and your stupidity keeps growing with your age! 🤪💖<br>
-                    But hey... thank you for your kindness, you lovely smart dentist 🦷✨<br>
-                    Keep shining, you beautiful disaster 😂🎉
+                    You've turned 19, and your stupidity keeps growing with your age.<br><br>
+                    But hey... thank you for your kindness, you smart dentist.<br><br>
+                    Keep shining, you beautiful disaster.
                 </div>
-                <div class="message-signature" style="font-style:italic; margin-bottom:1rem;">— From someone who adores you ❤️</div>
+                <div class="message-signature" style="font-style:italic; margin-bottom:1rem;">— From someone who adores you</div>
                 <button id="btn-close" class="btn-close">🔥 BURN THIS MESSAGE 🔥</button>
             </div>
         </div>
     </section>
 
-    <!-- SCREEN 5: Grand Finale (Church wedding + happy birthday) -->
+    <!-- SCREEN 5: Finale with church wedding music (loud & clear) -->
     <section id="screen-finale" class="screen">
         <div class="finale-scene">
             <div id="balloonsArea"></div>
             <div class="finale-text">
                 <h1>🥳 Happy 19, Soulef! 🥳</h1>
-                <p>May your legendary stupidity bring infinite laughter 🎈</p>
-                <div style="margin-top:1rem;">💒✨ church bells & celebration ✨🎂</div>
+                <p>May your legendary stupidity bring infinite laughter</p>
+                <div style="margin-top:1rem;">💒✨ Church bells & celebration ✨🎂</div>
             </div>
         </div>
     </section>
 
     <script>
         (function(){
-            // ----- state -----
+            // state
             let noCount = 0;
             let totalCandles = 5;
             let candlesBlown = 0;
             let audioCtx = null;
-            let layerStep = 0;
+            let churchOsc = null;  // for continuous? we'll use scheduled notes.
 
             // DOM elements
             const screens = document.querySelectorAll('.screen');
@@ -496,9 +500,9 @@
 
             function showScreen(id){ screens.forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
-            // ----- audio & sounds -----
+            // ----- audio context & helpers (no overlapping garbage) -----
             function initAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-            function playTone(freq, duration, type='sine', vol=0.2){
+            function playTone(freq, duration, type='sine', vol=0.25){
                 if(!audioCtx) return;
                 const now = audioCtx.currentTime;
                 const osc = audioCtx.createOscillator();
@@ -512,26 +516,50 @@
                 osc.start();
                 osc.stop(now+duration);
             }
-            function playHappyBirthdayMelody(){
-                const notes = [262,262,294,262,349,330, 262,262,294,262,392,349, 262,262,523,440,349,330,294,466,466,440,349,392,349];
-                let time = 0;
-                notes.forEach(f=>{
-                    setTimeout(()=> playTone(f, 0.4, 'sine', 0.2), time*450);
-                    time+=0.45;
-                });
-            }
-            function playWeddingChurch(){
-                // Bridal march style
-                const melody = [523,587,659,523, 659,587,523,494, 440,440,494,523, 523,523,523,659, 523,587,659,523, 659,587,523,494, 440,440,494,523, 523,523,523,523];
-                let time=0;
-                melody.forEach((f,i)=>{
-                    setTimeout(()=> playTone(f, 0.35, 'sine', 0.18), time*380);
-                    time+=0.4;
-                });
-                setTimeout(()=> playTone(659, 1.2, 'sine', 0.22), time*380);
-            }
-            function successBeep(){ playTone(880, 0.15, 'sine', 0.2); }
 
+            // Pure Church Wedding Music (organ style, longer & clear, no overlap with other melodies)
+            function playChurchWeddingMusic(){
+                if(!audioCtx) return;
+                // Classic bridal chorus phrase (Wagner / traditional)
+                const melody = [
+                    523, 587, 659, 523,  659, 587, 523, 494,
+                    440, 440, 494, 523,  523, 523, 523, 659,
+                    523, 587, 659, 523,  659, 587, 523, 494,
+                    440, 440, 494, 523,  523, 523, 523, 523
+                ];
+                let startTime = audioCtx.currentTime + 0.1;
+                melody.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle'; // organ-like
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.28;
+                    gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.35);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.35);
+                    startTime += 0.4;
+                });
+                // final long note
+                setTimeout(()=>{
+                    if(audioCtx){
+                        const osc2 = audioCtx.createOscillator();
+                        const gain2 = audioCtx.createGain();
+                        osc2.type = 'triangle';
+                        osc2.frequency.value = 659;
+                        gain2.gain.value = 0.3;
+                        gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.2);
+                        osc2.connect(gain2);
+                        gain2.connect(audioCtx.destination);
+                        osc2.start();
+                        osc2.stop(audioCtx.currentTime + 2.2);
+                    }
+                }, 13000);
+            }
+
+            function successBeep(){ playTone(880, 0.12, 'sine', 0.2); }
+            
             // ----- confetti system -----
             const confCanvas = document.getElementById('confetti');
             const confCtx = confCanvas.getContext('2d');
@@ -542,13 +570,13 @@
             resizeConf();
             function launchConfetti(){
                 if(!confActive) confActive = true;
-                for(let i=0;i<90;i++){
+                for(let i=0;i<100;i++){
                     confParticles.push({
                         x: Math.random()*confCanvas.width, y: -20-Math.random()*150,
-                        w: 5+Math.random()*8, h: 3+Math.random()*6,
+                        w: 5+Math.random()*9, h: 3+Math.random()*7,
                         color: ['#FFC857','#FF6B6B','#A29BFE','#F3A683','#FF8A5C'][Math.floor(Math.random()*5)],
-                        vy: 2+Math.random()*4, vx: (Math.random()-0.5)*2.5,
-                        rot: Math.random()*360, rotSpd: (Math.random()-0.5)*12, op: 1
+                        vy: 2+Math.random()*4, vx: (Math.random()-0.5)*2.8,
+                        rot: Math.random()*360, rotSpd: (Math.random()-0.5)*14, op: 1
                     });
                 }
                 if(!window.confFrame){
@@ -574,7 +602,7 @@
             }
 
             // ---------- ENTRY SCREEN (stupid question) ----------
-            const noMessages = ["Really? 👀", "The crown says otherwise 🤥", "Your stupidity is glowing 🤩", "Last chance...", "YES button is getting bigger...", "JUST ADMIT IT 🎈", "Fine, but you know the truth 😏", "Ok ok you’re smart, but click YES", "🤭🤭🤭", "OK then CELEBRATE!"];
+            const noMessages = ["Really? 👀", "The crown says otherwise 🤥", "Your stupidity is glowing 🤩", "Last chance...", "YES button is getting bigger...", "JUST ADMIT IT 🎈", "Fine, but you know the truth 😏", "Ok ok you’re smart, but click YES", "🤭🤭", "OK THEN CELEBRATE!"];
             btnNo.addEventListener('click',()=>{
                 initAudio(); playTone(660,0.08);
                 noCount++;
@@ -591,26 +619,26 @@
                 setTimeout(()=>{ showScreen('screen-cake'); startCakeDrop(); }, 700);
             });
 
-            // ----- CAKE DROP SEQUENCE (layers from sky, then cream, then candles) -----
+            // ----- CAKE DROP: LAYERS ONE BY ONE, THEN CREAM, THEN CANDLES -----
             function startCakeDrop(){
                 const layerB = document.getElementById('layerB');
                 const layerM = document.getElementById('layerM');
                 const layerT = document.getElementById('layerT');
                 layerB.classList.add('drop-in');
-                setTimeout(()=>{ layerM.classList.add('drop-in'); }, 180);
-                setTimeout(()=>{ layerT.classList.add('drop-in'); }, 360);
+                setTimeout(()=>{ layerM.classList.add('drop-in'); }, 200);
+                setTimeout(()=>{ layerT.classList.add('drop-in'); }, 400);
                 setTimeout(()=>{
                     creamLayer.classList.add('show-cream');
-                    playTone(450, 0.2, 'sine', 0.15);
-                }, 580);
+                    playTone(480, 0.2, 'sine', 0.18);
+                }, 650);
                 setTimeout(()=>{
                     createCandles();
                     const candlesDiv = document.querySelector('.candles-container');
                     candlesDiv.classList.add('show-candles');
                     blowAllBtn.style.display = 'inline-block';
                     blowInstruction.innerText = `🕯️ Click each candle to blow them out! (${totalCandles - candlesBlown} left)`;
-                    playHappyBirthdayMelody(); // happy birthday plays while candles appear
-                }, 950);
+                    // NO HAPPY BIRTHDAY MELODY HERE to avoid overlap. Only church later.
+                }, 1000);
             }
 
             function createCandles(){
@@ -620,14 +648,11 @@
                     candle.className = 'candle';
                     const flame = document.createElement('div');
                     flame.className = 'candle-flame';
-                    const smokeDiv = document.createElement('div');
-                    smokeDiv.style.position='absolute'; smokeDiv.style.top='-20px'; smokeDiv.style.left='50%'; smokeDiv.style.transform='translateX(-50%)';
                     candle.appendChild(flame);
-                    candle.appendChild(smokeDiv);
                     candle.addEventListener('click', (e)=>{
                         e.stopPropagation();
                         if(flame.classList.contains('blown')) return;
-                        playTone(220, 0.25, 'triangle', 0.12);
+                        playTone(230, 0.25, 'triangle', 0.13);
                         flame.classList.add('blown');
                         candlesBlown++;
                         blowInstruction.innerText = `🕯️ ${totalCandles - candlesBlown} candle${totalCandles-candlesBlown !==1 ? 's' : ''} left!`;
@@ -643,7 +668,6 @@
                 }
             }
 
-            // blow all button
             blowAllBtn.addEventListener('click',()=>{
                 const allFlames = document.querySelectorAll('.candle-flame');
                 allFlames.forEach(flame=>{
@@ -652,7 +676,7 @@
                         candlesBlown++;
                     }
                 });
-                playTone(300,0.4,'triangle',0.2);
+                playTone(310,0.4,'triangle',0.2);
                 blowInstruction.innerText = "✨ Whoosh! All blown! ✨";
                 if(candlesBlown >= totalCandles){
                     successBeep(); launchConfetti();
@@ -670,9 +694,9 @@
                 }, 700);
             });
 
-            // ---------- MESSAGE with BURN animation ----------
+            // ---------- MESSAGE BURN (clean burn effect) ----------
             btnCloseMsg.addEventListener('click',()=>{
-                initAudio(); playTone(400,0.2,'sawtooth',0.18);
+                initAudio(); playTone(420,0.2,'sawtooth',0.2);
                 messageCard.classList.add('burn');
                 setTimeout(()=>{
                     showScreen('screen-finale');
@@ -682,14 +706,14 @@
 
             function startFinaleCelebration(){
                 launchConfetti();
-                playWeddingChurch();   // church organ style
-                setTimeout(()=>{ playHappyBirthdayMelody(); }, 2800);
+                // play ONLY church wedding music (clear, loud enough)
+                if(audioCtx) playChurchWeddingMusic();
                 // balloons
                 const container = document.getElementById('balloonsArea');
                 function addBalloon(){
                     const balloon = document.createElement('div');
                     balloon.className = 'balloon';
-                    const icons = ['🎈','🎈','💖','🎂','🎉','✨','🎈','⭐'];
+                    const icons = ['🎈','🎈','🎉','🎂','✨','🎈','🎈'];
                     balloon.innerText = icons[Math.floor(Math.random()*icons.length)];
                     balloon.style.left = Math.random()*100 + '%';
                     balloon.style.fontSize = (Math.random()*2 + 2.2) + 'rem';
@@ -698,19 +722,19 @@
                     container.appendChild(balloon);
                     setTimeout(()=>balloon.remove(), 9000);
                 }
-                for(let i=0;i<20;i++) setTimeout(()=>addBalloon(), i*300);
-                setInterval(()=>{ if(document.getElementById('screen-finale').classList.contains('active')) addBalloon(); }, 800);
+                for(let i=0;i<22;i++) setTimeout(()=>addBalloon(), i*280);
+                setInterval(()=>{ if(document.getElementById('screen-finale').classList.contains('active')) addBalloon(); }, 850);
                 setInterval(()=>{ launchConfetti(); }, 2800);
             }
 
-            // particle background (simple stars)
+            // particle background (subtle stars)
             const partCanvas = document.getElementById('particles');
             const pCtx = partCanvas.getContext('2d');
             function resizePart(){ partCanvas.width = innerWidth; partCanvas.height = innerHeight; }
             window.addEventListener('resize', resizePart);
             resizePart();
             let stars = [];
-            for(let i=0;i<80;i++){
+            for(let i=0;i<90;i++){
                 stars.push({ x:Math.random()*partCanvas.width, y:Math.random()*partCanvas.height, r:Math.random()*2+1, alpha:Math.random()*0.6+0.2 });
             }
             function animateStars(){
