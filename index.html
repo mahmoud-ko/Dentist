@@ -467,7 +467,7 @@
         </div>
     </section>
 
-    <!-- SCREEN 4: Message (clean, burn effect) -->
+    <!-- SCREEN 4: Message with updated signature "lord walaa" -->
     <section id="screen-message" class="screen">
         <div class="message-scene">
             <div class="message-card" id="messageCard">
@@ -478,7 +478,7 @@
                     But hey... thank you for your kindness, you smart dentist.<br><br>
                     Keep shining, you beautiful disaster.
                 </div>
-                <div class="message-signature" style="font-style:italic; margin-bottom:1rem;">— From someone who adores you</div>
+                <div class="message-signature" style="font-style:italic; margin-bottom:1rem;">— From lord walaa</div>
                 <button id="btn-close" class="btn-close">🔥 BURN THIS MESSAGE 🔥</button>
             </div>
         </div>
@@ -536,7 +536,6 @@
             // Church wedding music (clear, loud, no interference)
             function playChurchWeddingMusic(){
                 if(!audioCtx) return;
-                // Traditional processional / wedding march style (organ)
                 const melody = [
                     523, 587, 659, 523,  659, 587, 523, 494,
                     440, 440, 494, 523,  523, 523, 523, 659,
@@ -557,7 +556,6 @@
                     osc.stop(startTime + 0.38);
                     startTime += 0.42;
                 });
-                // Final sustain
                 setTimeout(()=>{
                     if(audioCtx){
                         const osc2 = audioCtx.createOscillator();
